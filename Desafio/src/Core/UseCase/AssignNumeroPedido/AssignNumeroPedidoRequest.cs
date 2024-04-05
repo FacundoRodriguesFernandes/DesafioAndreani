@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.UseCase.AssignNumeroPedido
+namespace Core.UseCase.AssignNumeroPedido
 {
     public class AssignNumeroPedidoRequest : IRequest<AssignNumeroPedidoResponse>
     {

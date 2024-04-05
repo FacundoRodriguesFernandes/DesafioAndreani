@@ -1,6 +1,6 @@
-﻿using Application.Model;
+﻿using Core.Model;
 
-namespace Application.UseCase.AssignNumeroPedido
+namespace Core.UseCase.AssignNumeroPedido
 {
     public class AssignNumeroPedidoResponse
     {

@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using Core.Entities;
 
-namespace Application.Interfaces
+namespace Core.Interfaces
 {
     public interface IPedidoRepository
     {

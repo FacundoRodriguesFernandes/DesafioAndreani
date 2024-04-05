@@ -1,9 +1,9 @@
-﻿using Application.Interfaces;
-using Domain.Entities;
+﻿using Core.Entities;
+using Core.Interfaces;
 using MediatR;
 using Microsoft.IdentityModel.SecurityTokenService;
 
-namespace Application.UseCase.CreatePedido
+namespace Core.UseCase.CreatePedido
 {
     public class CreatePedidoHandler : IRequestHandler<CreatePedidoRequest, CreatePedidoResponse>
     {

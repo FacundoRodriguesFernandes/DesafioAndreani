@@ -1,8 +1,7 @@
-﻿using Application.Interfaces;
-using Domain.Entities;
+﻿using Core.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.Extensions
+namespace Core.Extensions
 {
     public static class ServiceCollectionExtension
     {

@@ -1,7 +1,7 @@
-﻿using Application.Model;
-using Domain.Entities;
+﻿using Core.Entities;
+using Core.Model;
 
-namespace Application.Mapping
+namespace Core.Mapping
 {
     public static class PedidoMappingExtension
     {

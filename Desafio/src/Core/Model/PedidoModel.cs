@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using Core.Entities;
 
-namespace Application.Model
+namespace Core.Model
 {
     public class PedidoModel
     {

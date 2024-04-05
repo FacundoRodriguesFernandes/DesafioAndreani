@@ -1,9 +1,9 @@
-﻿using Application.Interfaces;
-using Application.Mapping;
+﻿using Core.Interfaces;
+using Core.Mapping;
 using MediatR;
 using Microsoft.IdentityModel.SecurityTokenService;
 
-namespace Application.UseCase.AssignNumeroPedido
+namespace Core.UseCase.AssignNumeroPedido
 {
     public class AssignNumeroPedidoHandler : IRequestHandler<AssignNumeroPedidoRequest, AssignNumeroPedidoResponse>
     {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.UseCase.GetPedidoById
+namespace Core.UseCase.GetPedidoById
 {
     public class GetPedidoByIdRequest : IRequest<GetPedidoByIdResponse>
     {

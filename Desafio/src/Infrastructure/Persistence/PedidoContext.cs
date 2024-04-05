@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence
@@ -7,6 +7,8 @@ namespace Infrastructure.Persistence
     {
         public DbSet<Pedido> Pedido { get; set; }
 
-        public PedidoContext(DbContextOptions<PedidoContext> options) : base(options) { }
+        public PedidoContext(DbContextOptions<PedidoContext> options) : base(options)
+        {
+        }
     }
 }

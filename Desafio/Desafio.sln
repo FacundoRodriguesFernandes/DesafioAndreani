@@ -5,9 +5,9 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{70B25144-A752-43BC-A13B-C4A3246DDDD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "src\API\WebApi.csproj", "{6A37833F-F9FA-4DA9-B631-8094319E8215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\API\WebApi.csproj", "{6A37833F-F9FA-4DA9-B631-8094319E8215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{6DCB7486-4FD4-42A8-A6F2-16C862DDE7BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\Core\Core.csproj", "{6DCB7486-4FD4-42A8-A6F2-16C862DDE7BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{3D27D3E4-DAC7-40A1-B88E-98037C1CBE4F}"
 EndProject

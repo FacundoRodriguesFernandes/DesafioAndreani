@@ -1,6 +1,6 @@
-﻿using Application.Model;
+﻿using Core.Model;
 
-namespace Application.UseCase.GetPedidoById
+namespace Core.UseCase.GetPedidoById
 {
     public class GetPedidoByIdResponse
     {

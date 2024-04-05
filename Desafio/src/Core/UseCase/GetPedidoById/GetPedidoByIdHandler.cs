@@ -1,9 +1,9 @@
-﻿using Application.Interfaces;
-using Application.Mapping;
+﻿using Core.Interfaces;
+using Core.Mapping;
 using MediatR;
 using Microsoft.IdentityModel.SecurityTokenService;
 
-namespace Application.UseCase.GetPedidoById
+namespace Core.UseCase.GetPedidoById
 {
     public class GetPedidoByIdHandler : IRequestHandler<GetPedidoByIdRequest, GetPedidoByIdResponse>
     {

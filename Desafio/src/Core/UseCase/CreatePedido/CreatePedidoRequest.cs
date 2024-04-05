@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.UseCase.CreatePedido
+namespace Core.UseCase.CreatePedido
 {
     public class CreatePedidoRequest : IRequest<CreatePedidoResponse>
     {

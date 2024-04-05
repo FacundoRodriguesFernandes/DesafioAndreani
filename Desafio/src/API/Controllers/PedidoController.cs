@@ -1,6 +1,6 @@
-﻿using Application.UseCase.AssignNumeroPedido;
-using Application.UseCase.CreatePedido;
-using Application.UseCase.GetPedidoById;
+﻿using Core.UseCase.AssignNumeroPedido;
+using Core.UseCase.CreatePedido;
+using Core.UseCase.GetPedidoById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
