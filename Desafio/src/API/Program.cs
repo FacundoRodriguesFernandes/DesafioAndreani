@@ -1,5 +1,6 @@
 using Core.Extensions;
 using Infrastructure.Extensions;
+using Kafka.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
+builder.Services.AddKafka();
 
 var app = builder.Build();
 
