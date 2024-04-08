@@ -2,8 +2,10 @@
 {
     public class PedidoModel
     {
-        public long CurrentAccount { get; set; } 
-        public long InternalContractCode { get; set; }
+        [IsNumeric]
+        public long CurrentAccount { get; set; }
 
+        [IsNumeric]
+        public long InternalContractCode { get; set; }
     }
 }

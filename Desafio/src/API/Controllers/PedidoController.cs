@@ -3,6 +3,7 @@ using Core.UseCase.CreatePedido;
 using Core.UseCase.GetPedidoById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.SecurityTokenService;
 using WebApi.Models;
 
 namespace WebApi.Controllers
@@ -22,27 +23,28 @@ namespace WebApi.Controllers
         [Route("pedido")]
         public async Task<ActionResult> CreatePedido([FromBody] PedidoModel pedido)
         {
-            var response = _mediator.Send(new CreatePedidoRequest
+            var response = await _mediator.Send(new CreatePedidoRequest
             {
-                CurrentAccount = pedido.CurrentAccount,
-                InternalContractCode = pedido.InternalContractCode
+                CurrentAccount = Convert.ToInt64(pedido.CurrentAccount),
+                InternalContractCode = Convert.ToInt64(pedido.InternalContractCode)
             });
 
-            //TODO: devolver el header
+            HttpContext.Response.Headers.Add("Location", "attribute response");
+            HttpContext.Response.Headers.Add("x-my-custom-header", "attribute response");
 
-            return Created();
+            return Created(string.Empty, response);
         }
 
         [HttpGet]
         [Route("pedido/{id}")]
         public async Task<ActionResult> GetPedidoById(Guid id)
         {
+            if (!IsGuid(id)) throw new BadRequestException("Id inválido.");
+
             var response = await _mediator.Send(new GetPedidoByIdRequest
             {
                 Id = id
             });
-
-            //TODO: devolver el header
 
             return Ok(response.Pedido);
         }
@@ -51,15 +53,17 @@ namespace WebApi.Controllers
         [Route("pedido/{id}")]
         public async Task<ActionResult> AssignNumeroPedido(Guid id, long numeroDePedido)
         {
+            if (!IsGuid(id)) throw new BadRequestException("Id inválido.");
+
             var response = await _mediator.Send(new AssignNumeroPedidoRequest
             {
                 Id = id,
                 NumeroDePedido = numeroDePedido
             });
 
-            //TODO: devolver el header
-
             return Ok(response.Pedido);
         }
+
+        public static bool IsGuid(Guid id) => Guid.TryParse(id.ToString(), out _);
     }
 }

@@ -1,33 +1,35 @@
 ﻿using Core.Interfaces;
 using Core.Mapping;
+using Core.Model;
 using MediatR;
-using Microsoft.IdentityModel.SecurityTokenService;
 
-namespace Core.UseCase.GetPedidoById
+namespace Core.UseCase.GetPedidoById;
+
+public struct GetPedidoByIdResponse
 {
-    public class GetPedidoByIdHandler : IRequestHandler<GetPedidoByIdRequest, GetPedidoByIdResponse>
+    public PedidoModel Pedido { get; set; }
+}
+
+public struct GetPedidoByIdRequest : IRequest<GetPedidoByIdResponse>
+{
+    public Guid Id { get; set; }
+}
+
+public class GetPedidoByIdHandler : IRequestHandler<GetPedidoByIdRequest, GetPedidoByIdResponse>
+{
+    private readonly IPedidoRepository _repository;
+
+    public GetPedidoByIdHandler(IPedidoRepository repository)
     {
-        private readonly IPedidoRepository _repository;
+        _repository = repository;
+    }
 
-        public GetPedidoByIdHandler(IPedidoRepository repository)
-        {
-            _repository = repository;
-        }
+    public async Task<GetPedidoByIdResponse> Handle(GetPedidoByIdRequest request, CancellationToken cancellationToken)
+    {
+        var pedido = await _repository.GetPedidoById(request.Id, cancellationToken);
 
-        public async Task<GetPedidoByIdResponse> Handle(GetPedidoByIdRequest request, CancellationToken cancellationToken)
-        {
-            if (!IsGuid(request.Id)) throw new BadRequestException("Id inválido.");
+        if (pedido == null) throw new NullReferenceException($"El pedido con Id {request.Id} no existe.");
 
-            var pedido = await _repository.GetPedidoById(request.Id, cancellationToken);
-
-            if (pedido == null) throw new NullReferenceException($"El pedido con Id {request.Id} no existe.");
-
-            return new GetPedidoByIdResponse { Pedido = pedido.ToModel() };
-        }
-
-        public static bool IsGuid(Guid id)
-        {
-            return Guid.TryParse(id.ToString(), out _);
-        }
+        return new GetPedidoByIdResponse { Pedido = pedido.ToModel() };
     }
 }

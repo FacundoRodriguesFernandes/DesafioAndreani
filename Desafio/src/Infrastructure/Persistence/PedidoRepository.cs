@@ -15,8 +15,8 @@ namespace Infrastructure.Persistence
 
         public async Task CreatePedido(Pedido pedido, CancellationToken cancellationToken)
         {
-            _context.Add(pedido);
-            _context.SaveChanges();
+            await _context.AddAsync(pedido, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<Pedido> GetPedidoById(Guid Id, CancellationToken cancellationToken)
@@ -27,7 +27,7 @@ namespace Infrastructure.Persistence
         public async Task UpdatePedido(Pedido pedido, CancellationToken cancellationToken)
         {
             _context.Update(pedido);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

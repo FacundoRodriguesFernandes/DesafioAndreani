@@ -1,30 +1,30 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
 using MediatR;
-using Microsoft.IdentityModel.SecurityTokenService;
 
-namespace Core.UseCase.CreatePedido
+namespace Core.UseCase.CreatePedido;
+
+public struct CreatePedidoRequest : IRequest<Unit>
 {
-    public class CreatePedidoHandler : IRequestHandler<CreatePedidoRequest, CreatePedidoResponse>
+    public long CurrentAccount { get; set; }
+    public long InternalContractCode { get; set; }
+}
+
+public class CreatePedidoHandler : IRequestHandler<CreatePedidoRequest, Unit>
+{
+    private readonly IPedidoRepository _repository;
+
+    public CreatePedidoHandler(IPedidoRepository repository)
     {
-        private readonly IPedidoRepository _repository;
+        _repository = repository;
+    }
 
-        public CreatePedidoHandler(IPedidoRepository repository)
-        {
-            _repository = repository;
-        }
+    public async Task<Unit> Handle(CreatePedidoRequest request, CancellationToken cancellationToken)
+    {
+        var pedido = new Pedido(request.CurrentAccount, request.InternalContractCode);
 
-        public Task<CreatePedidoResponse> Handle(CreatePedidoRequest request, CancellationToken cancellationToken)
-        {
-            if (!IsValid(request)) throw new BadRequestException("Valores inválidos");
+        await _repository.CreatePedido(pedido, cancellationToken);
 
-            var pedido = new Pedido(request.CurrentAccount, request.InternalContractCode);
-
-            _repository.CreatePedido(pedido, cancellationToken);
-
-            return Task.FromResult(new CreatePedidoResponse());
-        }
-
-        public static bool IsValid(CreatePedidoRequest request) => request.CurrentAccount >= 0 || request.InternalContractCode >= 0;
+        return Unit.Value;
     }
 }

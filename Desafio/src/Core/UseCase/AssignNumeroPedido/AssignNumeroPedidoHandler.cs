@@ -1,35 +1,38 @@
 ﻿using Core.Interfaces;
 using Core.Mapping;
+using Core.Model;
 using MediatR;
-using Microsoft.IdentityModel.SecurityTokenService;
 
-namespace Core.UseCase.AssignNumeroPedido
+namespace Core.UseCase.AssignNumeroPedido;
+
+public struct AssignNumeroPedidoResponse
 {
-    public class AssignNumeroPedidoHandler : IRequestHandler<AssignNumeroPedidoRequest, AssignNumeroPedidoResponse>
+    public PedidoModel Pedido { get; set; }
+}
+
+public struct AssignNumeroPedidoRequest : IRequest<AssignNumeroPedidoResponse>
+{
+    public Guid Id { get; set; }
+    public long NumeroDePedido { get; set; }
+}
+
+public class AssignNumeroPedidoHandler : IRequestHandler<AssignNumeroPedidoRequest, AssignNumeroPedidoResponse>
+{
+    private readonly IPedidoRepository _repository;
+
+    public AssignNumeroPedidoHandler(IPedidoRepository repository)
     {
-        private readonly IPedidoRepository _repository;
+        _repository = repository;
+    }
 
-        public AssignNumeroPedidoHandler(IPedidoRepository repository)
-        {
-            _repository = repository;
-        }
+    public async Task<AssignNumeroPedidoResponse> Handle(AssignNumeroPedidoRequest request, CancellationToken cancellationToken)
+    {
+        var pedido = await _repository.GetPedidoById(request.Id, cancellationToken);
 
-        public async Task<AssignNumeroPedidoResponse> Handle(AssignNumeroPedidoRequest request, CancellationToken cancellationToken)
-        {
-            if (!IsGuid(request.Id)) throw new BadRequestException("Id inválido.");
+        pedido.SetNumeroPedido(request.NumeroDePedido);
 
-            var pedido = await _repository.GetPedidoById(request.Id, cancellationToken);
+        await _repository.UpdatePedido(pedido, cancellationToken);
 
-            pedido.SetNumeroPedido(request.NumeroDePedido);
-
-            await _repository.UpdatePedido(pedido, cancellationToken);
-
-            return new AssignNumeroPedidoResponse { Pedido = pedido.ToModel() };
-        }
-
-        public static bool IsGuid(Guid id)
-        {
-            return Guid.TryParse(id.ToString(), out _);
-        }
+        return new AssignNumeroPedidoResponse { Pedido = pedido.ToModel() };
     }
 }
